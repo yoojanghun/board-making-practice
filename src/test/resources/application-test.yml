@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/boarddb?serverTimezone=Asia/Seoul
+    username: board_app
+    password: StrongPsw123!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
+  test:
+    database:
+      replace: none
