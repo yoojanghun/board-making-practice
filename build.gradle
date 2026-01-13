@@ -46,13 +46,21 @@ dependencies {
     // hal explorer
     implementation 'org.springframework.data:spring-data-rest-hal-explorer'
 
-    // queryDSL 설정
-    implementation "com.querydsl:querydsl-jpa"
+    // queryDSL 설정 (버전 뒤에 :jakarta 필수)
+    implementation "com.querydsl:querydsl-jpa:5.0.0:jakarta" // 1. :jakarta 추가
     implementation "com.querydsl:querydsl-core"
     implementation "com.querydsl:querydsl-collections"
-    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa" // querydsl JPAAnnotationProcessor 사용 지정
-    annotationProcessor "jakarta.annotation:jakarta.annotation-api" // java.lang.NoClassDefFoundError (javax.annotation.Generated) 대응 코드
-    annotationProcessor "jakarta.persistence:jakarta.persistence-api" // java.lang.NoClassDefFoundError (javax.annotation.Entity) 대응 코드
+
+    // 2. classifier에 :jakarta 명시
+    annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
+
+    // 3. API 의존성 확인 (이미 잘 넣으셨지만 순서 정리)
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+
+    // Lombok (Querydsl 보다 위에 두는 것이 안전합니다)
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 }
 
 tasks.named('test') {
