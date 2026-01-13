@@ -39,6 +39,12 @@ dependencies {
     // Test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // Spring data rest
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+
+    // hal explorer
+    implementation 'org.springframework.data:spring-data-rest-hal-explorer'
 }
 
 tasks.named('test') {
