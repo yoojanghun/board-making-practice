@@ -15,7 +15,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-@Disabled
 @DisplayName("JPA 연결 테스트")
 @ActiveProfiles("test")
 @Import(JpaConfig.class)
@@ -24,7 +23,6 @@ class JpaRepositoryTest {
 
     private final ArticleRepository articleRepository;
     private final ArticleCommentRepository articleCommentRepository;
-    private final UserAccountRepository userAccountRepository;
 
     public JpaRepositoryTest(
             @Autowired ArticleRepository articleRepository,
@@ -33,7 +31,6 @@ class JpaRepositoryTest {
     ) {
         this.articleRepository = articleRepository;
         this.articleCommentRepository = articleCommentRepository;
-        this.userAccountRepository = userAccountRepository;
     }
 
     @DisplayName("Select 테스트")
@@ -57,8 +54,7 @@ class JpaRepositoryTest {
         long previousCount = articleRepository.count();
 
         // When
-        UserAccount savedUserAccount = userAccountRepository.save(UserAccount.of("userid", "userPsw", "email", "nickName", "memo"));
-        Article savedArticle = articleRepository.save(Article.of(savedUserAccount,"new article", "new content", "#spring"));
+        Article savedArticle = articleRepository.save(Article.of("new article", "new content", "#spring"));
 
         // Then
         assertThat(articleRepository.count())
