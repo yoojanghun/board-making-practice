@@ -42,7 +42,6 @@ public class Article {
     @Setter
     private String hashtag;             // 해시태그
 
-
     @ToString.Exclude
     @OrderBy("id")
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
@@ -87,5 +86,4 @@ public class Article {
     public int hashCode() {
         return Objects.hash(id);
     }
-
 }
