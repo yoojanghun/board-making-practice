@@ -15,6 +15,6 @@ public class ArticleController {
     public String articles(ModelMap map) {
         map.addAttribute("articles", List.of());
 
-        return "articles/index";
+        return "detail";
     }
 }
