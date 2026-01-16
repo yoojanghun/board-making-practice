@@ -2,7 +2,8 @@ package com.example.project_board.service;
 
 import com.example.project_board.domain.type.SearchType;
 import com.example.project_board.dto.ArticleDto;
-import com.example.project_board.dto.ArticleUpdateDto;
+import com.example.project_board.dto.ArticleWithCommentsDto;
+import org.springframework.data.domain.Pageable;
 import com.example.project_board.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,12 +17,12 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
 
     @Transactional(readOnly = true)
-    public Page<ArticleDto> searchArticles(SearchType title, String search_keyword) {
+    public Page<ArticleDto> searchArticles(SearchType searchType, String searchKeyword, Pageable pageable) {
         return Page.empty();
     }
 
     @Transactional(readOnly = true)
-    public ArticleDto searchArticle(long l) {
+    public ArticleWithCommentsDto getArticle(Long articleId) {
         return null;
     }
 
@@ -29,7 +30,7 @@ public class ArticleService {
 
     }
 
-    public void updateArticle(long articleId, ArticleUpdateDto dto) {
+    public void updateArticle(ArticleDto dto) {
 
     }
 
