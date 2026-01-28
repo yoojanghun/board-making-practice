@@ -9,6 +9,7 @@ import com.example.demo.service.ArticleCommentService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +46,18 @@ public class ArticleCommentController {
         ArticleCommentDto returnedArticleCommentDto = articleCommentService.saveArticleComment(articleCommentDto);
 
         return ArticleCommentResponse.from(returnedArticleCommentDto);
+    }
+
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<Void> deleteArticleComment(
+            @AuthenticationPrincipal BoardPrincipal boardPrincipal,
+            @PathVariable Long commentId
+    ) {
+        UserAccountDto userAccountDto = boardPrincipal.toDto();
+        String userId = userAccountDto.userId();
+        articleCommentService.deleteArticleComment(userId, commentId);
+
+        return ResponseEntity.noContent().build();
     }
 
 }

@@ -43,4 +43,14 @@ public class ArticleCommentService {
 
         return ArticleCommentDto.from(savedArticleComment);
     }
+
+    public void deleteArticleComment(String userId, Long commentId) {
+        ArticleComment articleComment = articleCommentRepository.findById(commentId)
+                .orElseThrow(EntityNotFoundException::new);
+        if(articleComment.getUserAccount().getUserId().equals(userId)) {
+            articleCommentRepository.delete(articleComment);
+        } else{
+            throw new SecurityException("댓글 삭제 권한이 없습니다.");
+        }
+    }
 }
