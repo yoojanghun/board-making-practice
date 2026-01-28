@@ -1,5 +1,6 @@
 package com.example.demo.dto;
 
+import com.example.demo.domain.Article;
 import com.example.demo.domain.ArticleComment;
 
 import java.time.LocalDateTime;
@@ -15,6 +16,10 @@ public record ArticleCommentDto(
         LocalDateTime modifiedAt,
         String modifiedBy
 ) {
+    public static ArticleCommentDto of(Long articleId, UserAccountDto userAccountDto,  Long parentCommentId, String content) {
+        return new ArticleCommentDto(null, articleId, userAccountDto, parentCommentId, content, null, null, null, null);
+    }
+
     public static ArticleCommentDto of(Long id, Long articleId, UserAccountDto userAccountDto, Long parentCommentId, String content, LocalDateTime createdAt, String createdBy, LocalDateTime modifiedAt, String modifiedBy) {
         return new ArticleCommentDto(id, articleId, userAccountDto, parentCommentId ,content, createdAt, createdBy, modifiedAt, modifiedBy);
     }
@@ -30,6 +35,14 @@ public record ArticleCommentDto(
                 entity.getCreatedBy(),
                 entity.getModifiedAt(),
                 entity.getModifiedBy()
+        );
+    }
+
+    public ArticleComment toEntity(Article article) {
+        return ArticleComment.of(
+                article,
+                UserAccountDto.toEntity(userAccountDto),
+                content
         );
     }
 }
